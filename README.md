@@ -10,6 +10,9 @@ not committed to this Git repository.
 
 ## Release contract
 
+The values below illustrate the schema. A client must use the manifest attached
+to its selected release, not these example hashes or byte counts.
+
 Each `v<version>` release contains exactly these assets:
 
 - `pannonico-lsp.wasm`
@@ -50,10 +53,13 @@ The repository is currently private. Pannonico editor extensions deliberately
 contain no GitHub credentials, so ordinary end-user downloads begin only after
 repository visibility and binary licensing permit public HTTPS access.
 
-The implementation follows the workspace architecture note at
-`../notes/three-repo-binary-workflow.md`. No license or redistribution right is
-granted until a license is added explicitly.
+The implementation follows the producer, release-hosting, and consumer
+ownership split described in the maintainer documentation. No license or
+redistribution right is granted until a license is added explicitly.
 
 The authenticated publication command, automated VS Code pin update, local
 unpublished test loop, packaging steps, and recovery rules are documented in
-the [Pannonico LSP distribution workflow](https://github.com/vx-rs/pannonico-go/blob/master/docs/lsp-distribution.md).
+the [Pannonico LSP distribution workflow](https://github.com/vx-rs/pannonico-go/blob/master/documentation/maintainers/lsp/distribution.md).
+
+Use the [documentation table of contents](documentation/README.md) to separate
+release-consumer guidance from maintainer ownership.
