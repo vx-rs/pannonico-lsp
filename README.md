@@ -53,3 +53,7 @@ repository visibility and binary licensing permit public HTTPS access.
 The implementation follows the workspace architecture note at
 `../notes/three-repo-binary-workflow.md`. No license or redistribution right is
 granted until a license is added explicitly.
+
+The authenticated publication command, automated VS Code pin update, local
+unpublished test loop, packaging steps, and recovery rules are documented in
+the [Pannonico LSP distribution workflow](https://github.com/vx-rs/pannonico-go/blob/master/docs/lsp-distribution.md).
