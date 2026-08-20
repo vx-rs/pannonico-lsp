@@ -24,13 +24,13 @@ size, and lowercase SHA-256 digest:
   "schemaVersion": 1,
   "product": "pannonico-lsp",
   "version": "0.0.0",
-  "sourceRevision": "64e406d2ac871a6ff872dd55928d0d82da238c28",
+  "sourceRevision": "f9d00ddb4af745f594295d34cd97cec157508db1",
   "ideContract": "1",
   "artifacts": {
     "wasip1-wasm": {
       "filename": "pannonico-lsp.wasm",
       "size": 9843717,
-      "sha256": "e21289337c7a4a7bc742d7d9e473be9cecc497964e0dcf1d46c0f7996717b25f"
+      "sha256": "6443dd3ce1063c934d20cc08bb3679effe3339171888920b35ee8131e0ced829"
     }
   }
 }
