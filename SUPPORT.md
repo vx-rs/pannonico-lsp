@@ -1,10 +1,15 @@
 # Support
 
-Report language-server usage questions, compatibility problems, and
-reproducible bugs in the
-[`vx-rs/pannonico` issue tracker](https://github.com/vx-rs/pannonico/issues).
+Use [pannonico-lsp Issues](https://github.com/vx-rs/pannonico-lsp/issues) for
+language-server download, manifest verification, WASI hosting, protocol,
+diagnostic, lifecycle, cache, update, and third-party integration reports.
 
-Include the Pannonico extension and LSP versions, VS Code and WASM WASI Core
-versions, operating system and architecture, minimal reproduction steps, and
-redacted Pannonico Output-channel logs. Use the private process in
-[SECURITY.md](SECURITY.md) for suspected vulnerabilities.
+Include the LSP version and IDE contract, manifest identity, host and client
+versions, operating system and architecture, initialization options, minimal
+reproduction steps, and redacted protocol or host logs. Remove credentials,
+personal data, private paths, and confidential project content.
+
+Extension-only installation, activation, command, and VS Code behavior belongs
+in [pannonico-vscode Issues](https://github.com/vx-rs/pannonico-vscode/issues).
+Suspected vulnerabilities use the private process in
+[SECURITY.md](SECURITY.md).

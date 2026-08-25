@@ -1,81 +1,65 @@
-# Pannonico LSP distribution
+# Pannonico language server
 
-This repository distributes the edition-neutral Pannonico language server for
-editor clients. Binaries are attached to immutable GitHub Releases and are not
-committed to this Git tree.
+This repository distributes the edition-neutral Pannonico WASI language server
+for editor and tool integrations. It contains integration documentation only;
+language-server source and binary files are not committed to this Git tree.
 
-## Release assets
+> **Pre-1.0 development notice:** Pannonico is under active development. Until version 1.0.0, public contracts and user-visible behavior may change between releases. Expect breaking changes while the program and distribution model are being stabilized.
 
-Each [`v<version>` release](https://github.com/vx-rs/pannonico-lsp/releases)
-contains exactly two assets:
+## Acquire and verify a release
+
+Each immutable [`v<version>` release](https://github.com/vx-rs/pannonico-lsp/releases)
+contains exactly:
 
 - `pannonico-lsp.wasm`
 - `manifest.json`
 
-For version `0.1.0`, the immutable download URLs are:
+Download both files anonymously from the same versioned release. Require the
+manifest's `lsp-release/v1` identity, selected version, full source revision,
+supported IDE contract, `wasip1-wasm` target, and
+`pannonico-lsp.wasm` filename. Verify the file size, lowercase SHA-256 digest,
+and WASM header before execution. Never combine a manifest and module from
+different releases or replace a published version in place.
 
-```text
-https://github.com/vx-rs/pannonico-lsp/releases/download/v0.1.0/pannonico-lsp.wasm
-https://github.com/vx-rs/pannonico-lsp/releases/download/v0.1.0/manifest.json
-```
+## Host contract
 
-A published version is never overwritten. Changed bytes require a new version.
-Release deletion or replacement is an incident-recovery action, not an update
-workflow.
+The module targets WASI Preview 1 and communicates through Language Server
+Protocol JSON-RPC over stdio. A host preopens the selected trusted project
+directory, reserves stdout for protocol messages, sends normal initialize,
+initialized, shutdown, and exit lifecycle messages, and terminates the process
+if orderly shutdown cannot complete.
 
-## Manifest contract
+The server provides completion, hover, definitions, and definite saved-file
+diagnostics for Pannonico configuration, templates, layouts, partials, data,
+and navigation. A client should replace diagnostics per document and clear
+them when the server publishes an empty set.
 
-The WASM module targets `wasip1-wasm`. Its schema-1 manifest identifies the
-release version, full source revision, IDE protocol contract, target, filename,
-byte size, and lowercase SHA-256 digest. The placeholders below illustrate the
-structure only; use the manifest attached to the selected release:
+## Cache and updates
 
-```json
-{
-  "schema": "lsp-release/v1",
-  "schemaVersion": 1,
-  "product": "pannonico-lsp",
-  "version": "<release version>",
-  "sourceRevision": "<full source commit>",
-  "ideContract": "1",
-  "artifacts": {
-    "wasip1-wasm": {
-      "filename": "pannonico-lsp.wasm",
-      "size": 12345678,
-      "sha256": "<64 lowercase hexadecimal characters>"
-    }
-  }
-}
-```
+Cache modules by immutable release identity. Revalidate file type, size,
+SHA-256, and WASM bytes before every use. Install downloads atomically, keep
+different versions separate, and update only after explicitly selecting and
+verifying a newer release. Do not use a mutable latest-release URL as the
+runtime identity.
 
-Clients must read the manifest from the same selected release as the module.
-They must require schema version `1`, product `pannonico-lsp`, the selected
-release version, a supported `ideContract`, target `wasip1-wasm`, and filename
-`pannonico-lsp.wasm`. Before execution, compare the downloaded file's byte size
-and SHA-256 digest with the manifest and verify that it is a WASM binary.
+## Compatibility and limits
 
-For a manual check after downloading both assets:
+All 0.x releases may introduce breaking protocol or diagnostic changes. Pin a
+version and IDE contract, retain its matching documentation, and follow
+migration notes. Strict cross-version compatibility begins with 1.0.0.
 
-```sh
-wc -c pannonico-lsp.wasm
-sha256sum pannonico-lsp.wasm
-```
+The module does not provide an authenticated network service, remote project
+filesystem, arbitrary Go-template interpretation, or automatic release
+discovery. The integrating host owns workspace trust, process isolation,
+downloads, cache permissions, and update policy.
 
-Compare both values with `artifacts.wasip1-wasm` in the downloaded
-`manifest.json`. Do not use an unrelated checksum, a mutable latest-release URL,
-or a manifest from another version.
+## Support, security, and licensing
 
-## License
+Use [pannonico-lsp Issues](https://github.com/vx-rs/pannonico-lsp/issues) for
+language-server acquisition, protocol, diagnostic, lifecycle, and third-party
+integration reports. Read [SUPPORT.md](SUPPORT.md) first. Suspected
+vulnerabilities use the shared private process in [SECURITY.md](SECURITY.md),
+not a public issue.
 
-Pannonico Free is available under either the
-[PolyForm Noncommercial License 1.0.0](LICENSES/PolyForm-Noncommercial-1.0.0.md)
-or the
-[PolyForm Small Business License 1.0.0](LICENSES/PolyForm-Small-Business-1.0.0.md),
-at your option. Organizations whose use is not permitted by either license
-require a separate commercial Pannonico license. See [LICENSE](LICENSE).
-
-## Support and security
-
-Use the Pannonico product repository's [support process](SUPPORT.md) for usage
-and compatibility issues. Report suspected vulnerabilities through the private
-process in [SECURITY.md](SECURITY.md).
+Pannonico Free is available under either included PolyForm license, at your
+option. See [LICENSE](LICENSE).
