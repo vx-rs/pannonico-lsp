@@ -1,38 +1,27 @@
 # Pannonico language server
 
 This repository distributes one edition-neutral Pannonico language server as
-native desktop executables and a WASI module. It contains integration documentation only;
-language-server source and binary files are not committed to this Git tree.
+one WASI module. It contains integration documentation only; language-server
+source and binary files are not committed to this Git tree.
 
 > **Pre-1.0 development notice:** Pannonico is under active development. Until version 1.0.0, public contracts and user-visible behavior may change between releases. Expect breaking changes while the program and distribution model are being stabilized.
 
 ## Acquire and verify a release
 
 Each immutable [`v<version>` release](https://github.com/vx-rs/pannonico-lsp/releases)
-contains exactly:
-
-- `pannonico-lsp.wasm`
-- `pannonico-lsp-darwin-amd64`
-- `pannonico-lsp-darwin-arm64`
-- `pannonico-lsp-linux-amd64`
-- `pannonico-lsp-linux-arm64`
-- `pannonico-lsp-windows-amd64.exe`
-- `pannonico-lsp-windows-arm64.exe`
-- `manifest.json`
+contains exactly `pannonico-lsp.wasm` and `manifest.json`.
 
 Download the manifest and selected payload anonymously from the same versioned
-release. Require the manifest's `lsp-release/v2` identity, selected version,
-full source revision, supported IDE contract, and complete target inventory.
-Select the exact host target and verify its filename, mode, size, lowercase
-SHA-256 digest, and native or WASI format before execution. Never combine a
-manifest and payload from different releases or replace a published version in
-place.
+release. Require the manifest's `lsp-release/v1` identity, selected version,
+full source revision, supported IDE contract, and sole `wasip1-wasm` record.
+Verify its fixed filename, size, and lowercase SHA-256 digest before execution.
+Never combine a manifest and module from different releases or replace a
+published version in place.
 
 ## Host contract
 
-Every target communicates through Language Server Protocol JSON-RPC over
-stdio. Native desktop integrations launch the matching executable directly.
-A WASI host preopens the selected trusted project directory. Every host
+The module communicates through Language Server Protocol JSON-RPC over stdio.
+A WASI host preopens only the selected trusted project directory. Every host
 reserves stdout for protocol messages, sends normal initialize,
 initialized, shutdown, and exit lifecycle messages, and terminates the process
 if orderly shutdown cannot complete.
@@ -44,11 +33,10 @@ them when the server publishes an empty set.
 
 ## Cache and updates
 
-Cache payloads by immutable release identity and target. Revalidate file type,
-mode, size, SHA-256, and executable format before every use. Install downloads atomically, keep
-different versions separate, and update only after explicitly selecting and
-verifying a newer release. Do not use a mutable latest-release URL as the
-runtime identity.
+Cache the module by immutable release identity. Revalidate file type, size, and
+SHA-256 before every use. Install downloads atomically, keep different versions
+separate, and update only after explicitly selecting and verifying a newer
+release. Do not use a mutable latest-release URL as the runtime identity.
 
 ## Compatibility and limits
 

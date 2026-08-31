@@ -1,8 +1,2 @@
 /manifest.json
 /pannonico-lsp.wasm
-/pannonico-lsp-darwin-amd64
-/pannonico-lsp-darwin-arm64
-/pannonico-lsp-linux-amd64
-/pannonico-lsp-linux-arm64
-/pannonico-lsp-windows-amd64.exe
-/pannonico-lsp-windows-arm64.exe
