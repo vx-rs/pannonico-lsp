@@ -31,6 +31,11 @@ diagnostics for Pannonico configuration, templates, layouts, partials, data,
 and navigation. A client should replace diagnostics per document and clear
 them when the server publishes an empty set.
 
+Markdown inline, fenced, and indented code is literal documentation and does
+not receive template language features. The same applies inside an HTML
+wrapper marked with `pannonico-verbatim`; completion and diagnostics resume in
+live source after the wrapper.
+
 ## Cache and updates
 
 Cache the module by immutable release identity. Revalidate file type, size, and
