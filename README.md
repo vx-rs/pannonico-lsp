@@ -1,8 +1,9 @@
 # Pannonico language server
 
-This repository distributes one edition-neutral Pannonico language server as
-one WASI module. It contains integration documentation only; language-server
-source and binary files are not committed to this Git tree.
+Use this language server to add Pannonico template completion, hover,
+definitions, and diagnostics to an editor. Each release provides a WASI
+module that works with both Free and Pro projects. The Git tree holds the
+integration guides, and the release holds the downloadable module.
 
 > **Pre-1.0 development notice:** Pannonico is under active development. Until version 1.0.0, public contracts and user-visible behavior may change between releases. Expect breaking changes while the program and distribution model are being stabilized.
 
@@ -11,12 +12,14 @@ source and binary files are not committed to this Git tree.
 Each immutable [`v<version>` release](https://github.com/vx-rs/pannonico-lsp/releases)
 contains exactly `pannonico-lsp.wasm` and `manifest.json`.
 
-Download the manifest and selected payload anonymously from the same versioned
-release. Require the manifest's `lsp-release/v1` identity, selected version,
-full source revision, supported IDE contract, and sole `wasip1-wasm` record.
-Verify its fixed filename, size, and lowercase SHA-256 digest before execution.
-Never combine a manifest and module from different releases or replace a
-published version in place.
+1. Select the release version your editor will use.
+2. Download the manifest and the module from that same release. Both files
+   are public.
+3. Check that the manifest uses `lsp-release/v1` and names the selected
+   version, full source revision, and supported IDE contract. It should
+   contain a single `wasip1-wasm` record.
+4. Before running the module, compare its filename, size, and lowercase
+   SHA-256 digest with the manifest. Keep each published version intact.
 
 ## Host contract
 
