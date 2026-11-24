@@ -7,6 +7,12 @@ integration guides, and the release holds the downloadable module.
 
 > **Pre-1.0 development notice:** Pannonico is under active development. Until version 1.0.0, public contracts and user-visible behavior may change between releases. Expect breaking changes while the program and distribution model are being stabilized.
 
+## Editor integrations
+
+- [Pannonico for VS Code on Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=vx-rs.pannonico)
+- [Pannonico for Neovim on GitHub](https://github.com/vx-rs/pannonico-neovim)
+- [Pannonico for JetBrains IDEs on JetBrains Marketplace](https://plugins.jetbrains.com/plugin/34033-pannonico)
+
 ## Acquire and verify a release
 
 Each immutable [`v<version>` release](https://github.com/vx-rs/pannonico-lsp/releases)
